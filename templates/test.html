@@ -1,0 +1,6 @@
+{% if request.user.is_authenticated %} 
+    <h1>{{request.user.phone}}</h1>  
+    <img src="{{request.user.photo.url}}" alt="" width="100px">
+{% else %}
+    <h1>Not authenticated</h1>
+{% endif %}
