@@ -802,6 +802,38 @@ h5.widget-title {
   border-color: #5897fb;
 }
 
+/* a tegini buttonga o'zgartirish uchun kod */
+/* Begin */
+.errorlist  {
+  color: red;
+}
+
+.a-register {
+  font-size: 15px;
+  font-weight: 500;
+  padding: 12px 40px;
+  color: #ffffff;
+  border: none;
+  background-color: #5897fb;
+  border-radius: 50px;
+  transition: transform 0.2s ease; /* Ko'tarilish effekti silliq bo'lishi uchun */
+}
+
+/* Tugmani ko'tarish uchun kod */
+.a-register:hover {
+  background-color: #3f81eb !important;
+  color: #ffffff;
+  transform: translateY(-5px); /* Tugmani 5px yuqoriga ko'taradi */
+}
+/* End */
+
+/* Tugmalarni ikki tomonga taqaydi */
+.form-login-registr{
+  display: flex;
+  justify-content: space-between; /* Tugmalarni ikki tomonga taqaydi */
+  align-items: center; /* Tugmalarni vertikal markazda joylashtiradi */
+}
+
 button.submit, button[type='submit'] {
   font-size: 15px;
   font-weight: 500;

@@ -4,6 +4,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse
 from django.shortcuts import redirect
 from django.contrib import messages
+from apps.accounts.form import UserForm
 
 # Create your views here.
 
@@ -33,6 +34,17 @@ class LogoutView(View):
         messages.warning(request, 'Logout successfully')
         return redirect('products:home')
     
-class SignupView(View):
+class RegisterView(View):
     def get(self, request):
-        return render(request, 'page-login-signup.html', {})
+        form = UserForm()
+        return render(request, 'register.html', {'form': form})
+    
+    def post(self, request):
+        form = UserForm(request.POST)
+        if form.is_valid():
+            user = form.save(commit=False)
+            user.set_password(form.cleaned_data['password1'])
+            user.save()
+            messages.success(request, 'Register successfully')
+            return redirect('accounts:login')
+        return render(request, 'register.html', {'form': form})
