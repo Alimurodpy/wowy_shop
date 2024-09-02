@@ -41,14 +41,18 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
     #lib
     'ckeditor',
 
     #apps
     'apps.accounts',
     'apps.base',
-    'apps.products'
+    'apps.products',
+
 ]
+
+SITE_ID = 1
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -169,3 +173,18 @@ MESSAGE_TAGS = {
     messages.ERROR: 'alert-danger'
 
 }
+
+# # Parol o'zgartitilganda tizimdan chiqib ketmaydi. Default(True) holatida esa tizimdan chiqib ketadi
+# LOGOUT_ON_PASSWORD_CHANGE = False
+
+
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'  # Masalan, Gmail SMTP serveridan foydalanish
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'hpvictus789@gmail.com'
+EMAIL_HOST_PASSWORD = 'Alimurod2277'
+DEFAULT_FROM_EMAIL = 'hpvictus789@gmail.com'  # Yoki o'z emailingizni kiriting
+
+# PASSWORD_RESET_EMAIL_TEMPLATE = 'registration/password_reset_email.html'

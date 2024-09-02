@@ -60,14 +60,17 @@
                                 </li>
                                 {% if request.user.is_authenticated %}
                                     <li>
-                                        <a href="{% url 'accounts:logout' %}"> Log Out </a>
+                                        <a href="{% url 'logout' %}"> Log Out </a>
+                                    </li>
+                                    <li>
+                                        <a href="{% url 'password_change' %}"> Change P</a>
                                     </li>
                                     {% else  %}
                                     <li>
-                                        <a href="{% url 'accounts:login' %}"> Log In </a> 
+                                        <a href="{% url 'login' %}"> Log In </a> 
                                     </li>
                                     <li>
-                                        <a href="{% url 'accounts:register' %}"> Sign Up </a>
+                                        <a href="{% url 'register' %}"> Sign Up </a>
                                     </li>  
                                 {% endif %} 
                                 
@@ -154,7 +157,7 @@
                                 </div>
                             </div>
                             <div class="header-action-icon-2">
-                                <a href="{% url 'accounts:login' %}">
+                                <a href="{% url 'login' %}">
                                     {% if request.user.is_authenticated %}
                                         {% if request.user.photo %}
                                             <img alt="wowy" src="{{ request.user.photo.url }}" class="rounded-circle">

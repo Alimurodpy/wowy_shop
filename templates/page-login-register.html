@@ -36,11 +36,11 @@
                                                         <label class="form-check-label" for="exampleCheckbox1"><span>Remember me</span></label>
                                                     </div>
                                                 </div>
-                                                <a class="text-muted" href="#">Forgot password?</a>
+                                                <a class="text-muted" href="{% url 'password_reset' %}">Forgot password?</a>
                                             </div>
                                             <div class="form-login-registr">
                                                 <button type="submit" class="btn btn-fill-out btn-block hover-up" name="login">Log in</button>
-                                                <a href="{% url 'accounts:register' %}" class="a-register">REGISTER</a>
+                                                <a href="{% url 'register' %}" class="a-register">REGISTER</a>
                                             </div>
                                         </form>
                                     </div>
