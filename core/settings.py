@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django.contrib.sites',
+
     #lib
     'ckeditor',
 
@@ -49,6 +49,10 @@ INSTALLED_APPS = [
     'apps.accounts',
     'apps.base',
     'apps.products',
+
+    #email
+    # 'django.contrib.sites',
+
 
 ]
 
@@ -178,13 +182,13 @@ MESSAGE_TAGS = {
 # LOGOUT_ON_PASSWORD_CHANGE = False
 
 
-# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'  # Masalan, Gmail SMTP serveridan foydalanish
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'hpvictus789@gmail.com'
-EMAIL_HOST_PASSWORD = 'Alimurod2277'
-DEFAULT_FROM_EMAIL = 'hpvictus789@gmail.com'  # Yoki o'z emailingizni kiriting
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_HOST = 'smtp.gmail.com'  # Masalan, Gmail SMTP serveridan foydalanish
+# EMAIL_PORT = 587
+# EMAIL_USE_TLS = True
+# EMAIL_HOST_USER = 'hpvictus789@gmail.com'
+# EMAIL_HOST_PASSWORD = 'Alimurod2277'
+# DEFAULT_FROM_EMAIL = 'hpvictus789@gmail.com'  # Yoki o'z emailingizni kiriting
 
 # PASSWORD_RESET_EMAIL_TEMPLATE = 'registration/password_reset_email.html'
