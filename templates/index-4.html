@@ -5,66 +5,30 @@
             <div class="container">
                 <div class="home-slide-cover bg-grey-9 mt-30">
                     <div class="hero-slider-1 style-4 dot-style-1 dot-style-1-position-1">
-                        <div class="single-hero-slider single-animation-wrap">
-                            <div class="container">
-                                <div class="row align-items-center slider-animated-1">
-                                    <div class="col-lg-5 col-md-6">
-                                        <div class="hero-slider-content-2">
-                                            <h4 class="animated">Trade-In Offer</h4>
-                                            <h2 class="animated fw-900">Supper Value Deals</h2>
-                                            <h1 class="animated fw-900 text-brand">On All Products</h1>
-                                            <p class="animated">Save more with coupons & up to 70% off</p>
-                                            <a class="animated btn btn-default btn-rounded" href="shop-product-right.html"> SHOP NOW <i class="fa fa-arrow-right"></i> </a>
+                        {% for banner in banners %}
+                            <div class="single-hero-slider single-animation-wrap">
+                                <div class="container">
+                                    <div class="row align-items-center slider-animated-1">
+                                        <div class="col-lg-5 col-md-6">
+                                            <div class="hero-slider-content-2">
+                                                {{ banner.title|safe }}
+                                                <a class="animated btn btn-default btn-rounded" href="{{ banner.url }}"> 
+                                                    SHOP NOW 
+                                                    <i class="fa fa-arrow-right"></i> 
+                                                </a>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-lg-7 col-md-6">
-                                        <div class="single-slider-img single-slider-img-1">
-                                            <img class="animated" src="assets/imgs/slider/slider-6.png" alt="">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="single-hero-slider single-animation-wrap">
-                            <div class="container">
-                                <div class="row align-items-center slider-animated-1">
-                                    <div class="col-lg-5 col-md-6">
-                                        <div class="hero-slider-content-2">
-                                            <h4 class="animated">Tech Promotions</h4>
-                                            <h2 class="animated fw-900">Tech Trending</h2>
-                                            <h1 class="animated fw-900 text-brand">Great Collection</h1>
-                                            <p class="animated">Save more with coupons & up to 20% off</p>
-                                            <a class="animated btn btn-default btn-rounded" href="shop-product-right.html"> DISCOVER NOW <i class="fa fa-arrow-right"></i> </a>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-7 col-md-6">
-                                        <div class="single-slider-img single-slider-img-1">
-                                            <img class="animated" src="assets/imgs/slider/slider-7.png" alt="">
+                                        <div class="col-lg-7 col-md-6">
+                                            <div class="single-slider-img single-slider-img-1">
+                                                {% if banner.image %}
+                                                    <img class="animated" src="{{ banner.image.url }}" alt="">
+                                                {% endif %}
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="single-hero-slider single-animation-wrap">
-                            <div class="container">
-                                <div class="row align-items-center slider-animated-1">
-                                    <div class="col-lg-5 col-md-6">
-                                        <div class="hero-slider-content-2">
-                                            <h4 class="animated">Upcoming Offer</h4>
-                                            <h2 class="animated fw-900">Big Deals From</h2>
-                                            <h1 class="animated fw-900 text-brand">Manufacturer</h1>
-                                            <p class="animated">Headphone, Gaming Laptop, PC and more...</p>
-                                            <a class="animated btn btn-default btn-rounded" href="shop-product-right.html"> SHOP NOW <i class="fa fa-arrow-right"></i> </a>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-7 col-md-6">
-                                        <div class="single-slider-img single-slider-img-1">
-                                            <img class="animated" src="assets/imgs/slider/slider-3.png" alt="">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        {% endfor %}
                     </div>
                     <div class="slider-arrow hero-slider-1-arrow"></div>
                 </div>

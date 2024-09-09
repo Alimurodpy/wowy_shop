@@ -1,11 +1,16 @@
 from django.shortcuts import render
 from django.views.generic import View
+from apps.products.models import Banner
 
 # Create your views here.
 
 class HomePageView(View):
     def get(self, request):
-        return render(request, 'index-4.html', {})
+        banner = Banner.objects.all()
+        context = {
+            'banners': banner
+        }
+        return render(request, 'index-4.html', context)
     
 class ShopView(View):
     def get(self, request):

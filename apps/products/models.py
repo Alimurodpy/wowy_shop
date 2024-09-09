@@ -1,7 +1,6 @@
 from django.db import models
 from apps.base.models import BaseModel
 from mptt.models import MPTTModel, TreeForeignKey
-#import RichTextField
 from ckeditor.fields import RichTextField
 
 class Category(BaseModel, MPTTModel):
@@ -29,14 +28,16 @@ class Category(BaseModel, MPTTModel):
         return self.title
 
 class Banner(BaseModel):
-    title = models.CharField(max_length=255, verbose_name="Banner title")
-    photo = models.ImageField(upload_to='banner_photo/', verbose_name="Banner photo")
-    body = RichTextField()
-    
+    title = RichTextField()
+    image = models.ImageField(upload_to='banner_image/', verbose_name="Banner image")
+    url = models.URLField(verbose_name="Banner url")
+
 
     class Meta:
         verbose_name = "Banner"
         verbose_name_plural = "Banners"
-
+    
     def __str__(self):
-        return self.title
+        return f"{self.id}"
+
+

@@ -1,6 +1,6 @@
 from django.contrib import admin
 from mptt.admin import DraggableMPTTAdmin
-from apps.products.models import Category
+from apps.products.models import Category, Banner
 
 @admin.register(Category)
 class CategoryAdmin(DraggableMPTTAdmin):
@@ -11,3 +11,9 @@ class CategoryAdmin(DraggableMPTTAdmin):
     list_filter = ('is_active', 'created_at')
     search_fields = ('title',)
     list_per_page = 20
+
+@admin.register(Banner)
+class BannerAdmin(admin.ModelAdmin):
+    list_display = ('id', 'url', 'created_at', 'is_active')
+    list_filter = ('is_active', 'created_at')
+    search_fields = ('title',)

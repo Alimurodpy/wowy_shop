@@ -1,10 +1,10 @@
 from django.shortcuts import render
 from django.views import View
 from django.contrib.auth import authenticate, login, logout
-from django.http import HttpResponse
 from django.shortcuts import redirect
 from django.contrib import messages
 from apps.accounts.form import UserForm
+from django.contrib.auth.views import PasswordChangeDoneView
 
 # Create your views here.
 
@@ -48,3 +48,10 @@ class RegisterView(View):
             messages.success(request, 'Register successfully')
             return redirect('login')
         return render(request, 'register.html', {'form': form})
+    
+class CustomPasswordChangeDoneView(PasswordChangeDoneView):
+    def get(self, request):
+        logout(request)
+        messages.success(request, 'Password changed successfully')
+        return render(request, 'registration/password_change_done.html', {})
+
