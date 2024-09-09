@@ -40,4 +40,10 @@ class Banner(BaseModel):
     def __str__(self):
         return f"{self.id}"
 
-
+class Brand(BaseModel):
+    title = models.CharField(max_length=255, verbose_name="Brand name")
+    icon = models.TextField(null=True, blank=True, verbose_name="Icon")
+    
+    class Meta:
+        verbose_name = "Brand"
+        verbose_name_plural = "Brands"
