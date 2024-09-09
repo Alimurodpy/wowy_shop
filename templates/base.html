@@ -16,6 +16,7 @@
     <link rel="shortcut icon" type="image/x-icon" href="{% static 'assets/imgs/theme/favico.svg' %}">
     <!-- Template CSS -->
     <link rel="stylesheet" href="{% static 'assets/css/main.css' %}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet">
 </head>
 
 <body>
@@ -161,6 +162,8 @@
                                     {% if request.user.is_authenticated %}
                                         {% if request.user.photo %}
                                             <img alt="wowy" src="{{ request.user.photo.url }}" class="rounded-circle">
+                                        {% else %}
+                                            <img alt="wowy" src="{% static 'assets/imgs/theme/icons/icon-user.svg' %}">
                                         {% endif %}
                                     {% else %}
                                         <img alt="wowy" src="{% static 'assets/imgs/theme/icons/icon-user.svg' %}">
