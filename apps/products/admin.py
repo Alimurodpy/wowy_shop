@@ -83,6 +83,7 @@ class AdditionalInfoInline(admin.TabularInline):
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
     list_display = ( 'title', 'brand', 'SKU')
+    prepopulated_fields = {'slug': ('title',)}
     list_filter = ('is_active', 'created_at')
     search_fields = ('title',)
     filter_horizontal = ('tags', 'category')

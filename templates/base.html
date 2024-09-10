@@ -17,6 +17,8 @@
     <!-- Template CSS -->
     <link rel="stylesheet" href="{% static 'assets/css/main.css' %}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet">
+
+
 </head>
 
 <body>
@@ -188,9 +190,10 @@
                         <div class="categori-dropdown-wrap categori-dropdown-active-large">
                             <ul>
                                 {% for category in categories %}
-                                    <li class="has-children">
-                                        {% if not category.parent %}
-                                            <a href="#"><i class="{{ category.icon }}"></i>{{ category.title }}</a>
+                                    {% if grandparents_count <= 10 %}
+                                        <li class="has-children">
+                                            {% if not category.parent %}
+                                                <a href="#"><i class="{{ category.icon }}"></i>{{ category.title }}</a>
                                                 <div class="dropdown-menu">
                                                     <ul class="mega-menu d-lg-flex">
                                                         <li class="mega-menu-col col-lg-7">
@@ -213,40 +216,74 @@
                                                         </li>
                                                         <li class="mega-menu-col col-lg-5">
                                                             <div class="header-banner2">
-                                                                <img src="assets/imgs/banner/menu-banner-2.jpg" alt="menu_banner1">
+                                                                <img src="{{ category.photo.url }}" alt="menu_banner1">
                                                                 <div class="banne_info">
                                                                     <h6>10% Off</h6>
                                                                     <h4>New Arrival</h4>
                                                                     <a href="#">Shop now</a>
                                                                 </div>
                                                             </div>
-                                                            <div class="header-banner2">
-                                                                <img src="assets/imgs/banner/menu-banner-3.jpg" alt="menu_banner2">
-                                                                <div class="banne_info">
-                                                                    <h6>15% Off</h6>
-                                                                    <h4>Hot Deals</h4>
-                                                                    <a href="#">Shop now</a>
-                                                                </div>
-                                                            </div>
+                                                            
                                                         </li>
                                                     </ul>
                                                 </div>
-                                            {% endif %}   
-                                    </li>
+                                            {% endif %} 
+                                        </li>
+                                    {% endif %}
                                 {% endfor %}
                                 <li><a href="shop-grid-right.html"><i class="wowy-font-desktop"></i>Computer & Office</a></li>
-                                <li><a href="shop-grid-right.html"><i class="wowy-font-cpu"></i>Consumer Electronics</a></li>
-                                <li><a href="shop-grid-right.html"><i class="wowy-font-diamond"></i>Jewelry & Accessories</a></li>
-                                <li><a href="shop-grid-right.html"><i class="wowy-font-home"></i>Home & Garden</a></li>
-                                <li><a href="shop-grid-right.html"><i class="wowy-font-high-heels"></i>Shoes</a></li>
-                                <li><a href="shop-grid-right.html"><i class="wowy-font-teddy-bear"></i>Mother & Kids</a></li>
-                                <li><a href="shop-grid-right.html"><i class="wowy-font-kite"></i>Outdoor fun</a></li>
                                 <li>
                                     <ul class="more_slide_open" style="display: none;">
                                         <li><a href="shop-grid-right.html"><i class="wowy-font-desktop"></i>Beauty, Health</a></li>
-                                        <li><a href="shop-grid-right.html"><i class="wowy-font-cpu"></i>Bags and Shoes</a></li>
-                                        <li><a href="shop-grid-right.html"><i class="wowy-font-diamond"></i>Consumer Electronics</a></li>
-                                        <li><a href="shop-grid-right.html"><i class="wowy-font-home"></i>Automobiles & Motorcycles</a></li>
+                                        {% for category in categories %}
+                                            {% if grandparents_count > 10 %}
+                                                <li class="has-children">
+                                                    {% if not category.parent %}
+                                                        <a href="#"><i class="{{ category.icon }}"></i>{{ category.title }}</a>
+                                                        <div class="dropdown-menu">
+                                                            <ul class="mega-menu d-lg-flex">
+                                                                <li class="mega-menu-col col-lg-7">
+                                                                    <ul class="d-lg-flex">
+                                                                        <li class="mega-menu-col col-lg-6">
+                                                                            {% if category.children.exists %}
+                                                                                <ul>
+                                                                                    {% for father in category.children.all %}
+                                                                                        <li><span class="submenu-title">{{ father.title }}</span></li>
+                                                                                        {% if father.children.exists %}
+                                                                                            {% for child in father.children.all %}
+                                                                                            <li><a class="dropdown-item nav-link nav_item" href="#">{{ child.title }}</a></li>
+                                                                                            {% endfor %}
+                                                                                        {% endif %}
+                                                                                    {% endfor %}
+                                                                                </ul>
+                                                                            {% endif %}
+                                                                        </li>
+                                                                    </ul>
+                                                                </li>
+                                                                <li class="mega-menu-col col-lg-5">
+                                                                    <div class="header-banner2">
+                                                                        <img src="assets/imgs/banner/menu-banner-2.jpg" alt="menu_banner1">
+                                                                        <div class="banne_info">
+                                                                            <h6>10% Off</h6>
+                                                                            <h4>New Arrival</h4>
+                                                                            <a href="#">Shop now</a>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="header-banner2">
+                                                                        <img src="assets/imgs/banner/menu-banner-3.jpg" alt="menu_banner2">
+                                                                        <div class="banne_info">
+                                                                            <h6>15% Off</h6>
+                                                                            <h4>Hot Deals</h4>
+                                                                            <a href="#">Shop now</a>
+                                                                        </div>
+                                                                    </div>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    {% endif %}   
+                                                </li>
+                                            {% endif %}
+                                        {% endfor %}
                                     </ul>
                                 </li>
                             </ul>

@@ -1,4 +1,5 @@
 ﻿{% extends 'base.html' %}
+{% load static %}
 {% block content %}
     <main class="main">
         <section class="home-slider position-relative mb-30">
@@ -998,98 +999,25 @@
                 <div class="carausel-6-columns-cover position-relative">
                     <div class="slider-arrow slider-arrow-2 carausel-6-columns-arrow" id="carausel-6-columns-arrows"></div>
                     <div class="carausel-6-columns" id="carausel-6-columns">
-                        <div class="card-1 border-radius-10 hover-up p-30">
-                            <figure class="mb-30 img-hover-scale overflow-hidden">
-                                <img src="assets/imgs/shop/category-thumb-1.jpg" alt="">
-                            </figure>
-                            <h5><a href="shop-grid-right.html">Men's Fashion</a></h5>
-                        </div>
-                        <div class="card-1 border-radius-10 hover-up p-30">
-                            <figure class="mb-30 img-hover-scale overflow-hidden">
-                                <img src="assets/imgs/shop/category-thumb-2.jpg" alt="">
-                            </figure>
-                            <h5><a href="shop-grid-right.html">Women's Fashion</a></h5>
-                        </div>
-                        <div class="card-1 border-radius-10 hover-up p-30">
-                            <figure class="mb-30 img-hover-scale overflow-hidden">
-                                <img src="assets/imgs/shop/category-thumb-3.jpg" alt="">
-                            </figure>
-                            <h5><a href="shop-grid-right.html">Watches</a></h5>
-                        </div>
-                        <div class="card-1 border-radius-10 hover-up p-30">
-                            <figure class="mb-30 img-hover-scale overflow-hidden">
-                                <img src="assets/imgs/shop/category-thumb-4.jpg" alt="">
-                            </figure>
-                            <h5><a href="shop-grid-right.html">Bag & Shoes</a></h5>
-                        </div>
-                        <div class="card-1 border-radius-10 hover-up p-30">
-                            <figure class="mb-30 img-hover-scale overflow-hidden">
-                                <img src="assets/imgs/shop/category-thumb-5.jpg" alt="">
-                            </figure>
-                            <h5><a href="shop-grid-right.html">Phone</a></h5>
-                        </div>
-                        <div class="card-1 border-radius-10 hover-up p-30">
-                            <figure class="mb-30 img-hover-scale overflow-hidden">
-                                <img src="assets/imgs/shop/category-thumb-6.jpg" alt="">
-                            </figure>
-                            <h5><a href="shop-grid-right.html">Computers</a></h5>
-                        </div>
-                        <div class="card-1 border-radius-10 hover-up p-30">
-                            <figure class="mb-30 img-hover-scale overflow-hidden">
-                                <img src="assets/imgs/shop/category-thumb-7.jpg" alt="">
-                            </figure>
-                            <h5><a href="shop-grid-right.html">Laptop</a></h5>
-                        </div>
-                        <div class="card-1 border-radius-10 hover-up p-30">
-                            <figure class="mb-30 img-hover-scale overflow-hidden">
-                                <img src="assets/imgs/shop/category-thumb-8.jpg" alt="">
-                            </figure>
-                            <h5><a href="shop-grid-right.html">Furniture</a></h5>
-                        </div>
+                        {% for grandparent in grandparents %}
+                            <div class="card-1 border-radius-10 hover-up p-30">
+                                <figure class="mb-30 img-hover-scale overflow-hidden">
+                                    {% if grandparent.photo %}
+                                        <img src="{{ grandparent.photo.url }}" alt="">
+                                    {% endif %}
+                                </figure>
+                                <h5><a href="#">{{ grandparent.title }}</a></h5>
+                            </div>
+                        {% endfor %}
                     </div>
                 </div>
             </div>
         </section>
-        <section class="banners pt-30 pb-30">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-4 col-md-6">
-                        <div class="banner-img wow fadeIn animated">
-                            <img class="border-radius-10" src="assets/imgs/banner/banner-1.png" alt="">
-                            <div class="banner-text">
-                                <span>Smart Offer</span>
-                                <h4>Save 20% on <br>iPhone 12</h4>
-                                <a href="shop-grid-right.html">Shop Now <i class="fa fa-arrow-right"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6">
-                        <div class="banner-img wow fadeIn animated">
-                            <img class="border-radius-10" src="assets/imgs/banner/banner-2.png" alt="">
-                            <div class="banner-text">
-                                <span>Sale off</span>
-                                <h4>Great Camera <br>Collection</h4>
-                                <a href="shop-grid-right.html">Shop Now <i class="fa fa-arrow-right"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 d-md-none d-lg-flex">
-                        <div class="banner-img wow fadeIn animated  mb-sm-0">
-                            <img class="border-radius-10" src="assets/imgs/banner/banner-3.png" alt="">
-                            <div class="banner-text">
-                                <span>New Arrivals</span>
-                                <h4>Shop Today’s <br>Deals & Offers</h4>
-                                <a href="shop-grid-right.html">Shop Now <i class="fa fa-arrow-right"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+        
         <section class="banner-2">
             <div class="container">
                 <div class="banner-img banner-big wow fadeIn animated f-none">
-                    <img src="assets/imgs/banner/banner-4.png" alt="">
+                    <img src="{% static 'assets/imgs/banner/banner-4.png' %}" alt="">
                     <div class="banner-text">
                         <h4 class="mb-15 mt-40 text-white">Repair Services</h4>
                         <h2 class="fw-600 mb-20 text-white">We're an Apple <br>Authorised Service Provider</h2>
@@ -1319,7 +1247,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-6 deal-co">
-                        <div class="deal wow fadeIn animated mb-md-4 mb-sm-4 mb-lg-0" style="background-image: url('assets/imgs/banner/menu-banner-7.jpg');">
+                        <div class="deal wow fadeIn animated mb-md-4 mb-sm-4 mb-lg-0" style="background-image: url('{% static 'assets/imgs/banner/menu-banner-7.jpg' %}');">
                             <div class="deal-top">
                                 <h2 class="text-brand">Deal of the Day.</h2>
                                 <h5>Limited quantities.</h5>
@@ -1336,7 +1264,7 @@
                         </div>
                     </div>
                     <div class="col-lg-6 deal-co">
-                        <div class="deal wow fadeIn animated" style="background-image: url('assets/imgs/banner/menu-banner-8.jpg');">
+                        <div class="deal wow fadeIn animated" style="background-image: url('{% static 'assets/imgs/banner/menu-banner-8.jpg' %}');">
                             <div class="deal-top">
                                 <h2 class="text-success">Gadgets & Accessories</h2>
                                 <h5>Computers & Laptop</h5>
@@ -1361,27 +1289,13 @@
                 <div class="carausel-6-columns-cover arrow-center position-relative wow fadeIn animated">
                     <div class="slider-arrow slider-arrow-3 carausel-6-columns-arrow" id="carausel-6-columns-3-arrows"></div>
                     <div class="carausel-6-columns text-center" id="carausel-6-columns-3">
-                        <div class="brand-logo">
-                            <img class="img-grey-hover" src="assets/imgs/banner/brand-1.png" alt="">
-                        </div>
-                        <div class="brand-logo">
-                            <img class="img-grey-hover" src="assets/imgs/banner/brand-2.png" alt="">
-                        </div>
-                        <div class="brand-logo">
-                            <img class="img-grey-hover" src="assets/imgs/banner/brand-3.png" alt="">
-                        </div>
-                        <div class="brand-logo">
-                            <img class="img-grey-hover" src="assets/imgs/banner/brand-4.png" alt="">
-                        </div>
-                        <div class="brand-logo">
-                            <img class="img-grey-hover" src="assets/imgs/banner/brand-5.png" alt="">
-                        </div>
-                        <div class="brand-logo">
-                            <img class="img-grey-hover" src="assets/imgs/banner/brand-6.png" alt="">
-                        </div>
-                        <div class="brand-logo">
-                            <img class="img-grey-hover" src="assets/imgs/banner/brand-3.png" alt="">
-                        </div>
+                        {% for brand in brands %} 
+                            <div class="brand-logo">
+                                {% if brand.logo %}
+                                    <img class="img-grey-hover" src="{{ brand.logo.url }}" alt="{{ brand.title }}">
+                                {% endif %}
+                            </div>
+                        {% endfor %}
                     </div>
                 </div>
             </div>
@@ -1409,7 +1323,7 @@
                 <div class="row">
                     <div class="col-lg-3 d-none d-lg-flex">
                         <div class="banner-img style-2 wow fadeIn animated">
-                            <img src="assets/imgs/banner/banner-9.jpg" alt="">
+                            <img src="{% static 'assets/imgs/banner/banner-9.jpg' %}" alt="">
                             <div class="banner-text">
                                 <span>Gaming Area</span>
                                 <h4>Save 17% on <br>Assus Laptop</h4>
@@ -1988,100 +1902,10 @@
                 </div>
             </div>
         </section>
-        <section class="pt-30 pb-30">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-6">
-                        <h3 class="section-title style-1 mb-30 wow fadeIn animated">News & Trending</h3>
-                        <div class="post-list mb-4 mb-lg-0">
-                            <article class="wow fadeIn animated">
-                                <div class="d-md-flex d-block">
-                                    <div class="post-thumb d-flex mr-15 border-radius-10">
-                                        <a class="color-white" href="single.html">
-                                            <img class="border-radius-10" src="assets/imgs/blog/blog-2.jpg" alt="">
-                                        </a>
-                                    </div>
-                                    <div class="post-content">
-                                        <div class="entry-meta mb-5 mt-10">
-                                            <a class="entry-meta meta-2" href="category.html"><span class="post-in text-danger font-x-small text-uppercase">Tech</span></a>
-                                        </div>
-                                        <h4 class="post-title mb-25 text-limit-2-row">
-                                            <a href="blog-details.html">Qualcomm is developing a Nintendo Switch-like console, report says</a>
-                                        </h4>
-                                        <div class="entry-meta meta-1 font-xs color-grey mt-10 pb-10">
-                                            <div>
-                                                <span class="post-on"> <i class="far fa-clock"></i> 14 April 2021</span>
-                                                <span class="hit-count has-dot">12M Views</span>
-                                            </div>
-                                            <a href="blog-post-right.html">Read more <i class="fa fa-arrow-right font-xxs ml-5"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </article>
-                            <article class="wow fadeIn animated">
-                                <div class="d-md-flex d-block">
-                                    <div class="post-thumb d-flex mr-15 border-radius-10">
-                                        <a class="color-white" href="single.html">
-                                            <img class="border-radius-10" src="assets/imgs/blog/blog-1.jpg" alt="">
-                                        </a>
-                                    </div>
-                                    <div class="post-content">
-                                        <div class="entry-meta mb-5 mt-10">
-                                            <a class="entry-meta meta-2" href="category.html"><span class="post-in text-info font-x-small text-uppercase">Telecom</span></a>
-                                        </div>
-                                        <h4 class="post-title mb-25 text-limit-2-row">
-                                            <a href="blog-details.html">Not even the coronavirus can derail 5G's global momentum</a>
-                                        </h4>
-                                        <div class="entry-meta meta-1 font-xs color-grey mt-10 pb-10">
-                                            <div>
-                                                <span class="post-on"> <i class="far fa-clock"></i> 14 April 2021</span>
-                                                <span class="hit-count has-dot">12M Views</span>
-                                            </div>
-                                            <a href="blog-post-right.html">Read more <i class="fa fa-arrow-right font-xxs ml-5"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </article>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="banner-img banner-1 wow fadeIn animated">
-                                    <img class="border-radius-10" src="assets/imgs/banner/banner-5.jpg" alt="">
-                                    <div class="banner-text">
-                                        <span>Gaming Area</span>
-                                        <h4>Save 17% on <br>Assus Laptop</h4>
-                                        <a href="shop-grid-right.html">Shop Now <i class="fa fa-arrow-right"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="banner-img mb-15 wow fadeIn animated">
-                                    <img class="border-radius-10" src="assets/imgs/banner/banner-6.jpg" alt="">
-                                    <div class="banner-text">
-                                        <span>Smart Offer</span>
-                                        <h4>Save 20% on <br>iPhone 12</h4>
-                                        <a href="shop-grid-right.html">Shop Now <i class="fa fa-arrow-right"></i></a>
-                                    </div>
-                                </div>
-                                <div class="banner-img banner-2 wow fadeIn animated">
-                                    <img class="border-radius-10" src="assets/imgs/banner/banner-7.jpg" alt="">
-                                    <div class="banner-text">
-                                        <span>Smart Offer</span>
-                                        <h4>Save 20% on <br>iPhone 12</h4>
-                                        <a href="shop-grid-right.html">Shop Now <i class="fa fa-arrow-right"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+        
         <section class="mb-30">
             <div class="container">
-                <div class="banner-bg wow fadeIn animated" style="background-image: url('assets/imgs/banner/banner-8.jpg')">
+                <div class="banner-bg wow fadeIn animated" style="background-image: url('{% static  'assets/imgs/banner/banner-8.jpg' %}')">
                     <div class="banner-content">
                         <h5 class="text-grey-4 mb-15">Shop Today’s Deals</h5>
                         <h3 class="fw-600">Specialized storage for tourism</h3>
@@ -2092,17 +1916,8 @@
         <section class="mb-30">
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-3 col-md-6 mb-sm-5 mb-md-0">
-                        <div class="banner-img wow fadeIn animated mb-md-4 mb-lg-0">
-                            <img class="border-radius-10" src="assets/imgs/banner/banner-10.jpg" alt="">
-                            <div class="banner-text">
-                                <span>Music Zone</span>
-                                <h4>Save 17% on <br>Headphone</h4>
-                                <a href="shop-grid-right.html">Shop Now <i class="fa fa-arrow-right"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 mb-sm-5 mb-md-0">
+                    
+                    <div class="col-lg-4 col-md-6 mb-sm-5 mb-md-0">
                         <h4 class="section-title style-1 mb-30 wow fadeIn animated">Deals & Outlet</h4>
                         <div class="product-list-small wow fadeIn animated">
                             <article class="row align-items-center">
@@ -2149,7 +1964,7 @@
                             </article>
                         </div>
                     </div>
-                    <div class="col-lg-3 col-md-6 mb-sm-5 mb-md-0">
+                    <div class="col-lg-4 col-md-6 mb-sm-5 mb-md-0">
                         <h4 class="section-title style-1 mb-30 wow fadeIn animated">Top Selling</h4>
                         <div class="product-list-small wow fadeIn animated">
                             <article class="row align-items-center">
@@ -2196,7 +2011,7 @@
                             </article>
                         </div>
                     </div>
-                    <div class="col-lg-3 col-md-6">
+                    <div class="col-lg-4 col-md-6">
                         <h4 class="section-title style-1 mb-30 wow fadeIn animated">Hot Releases</h4>
                         <div class="product-list-small wow fadeIn animated">
                             <article class="row align-items-center">
