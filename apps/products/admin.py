@@ -11,7 +11,8 @@ from apps.products.models import (
     ProductImage,
     ProductSize,
     AdditionalInfo,
-    Review
+    Review,
+    Service
 )
 
 @admin.register(Category)
@@ -28,6 +29,12 @@ class CategoryAdmin(DraggableMPTTAdmin):
 @admin.register(Banner)
 class BannerAdmin(admin.ModelAdmin):
     list_display = ('id', 'url', 'created_at', 'is_active')
+    list_filter = ('is_active', 'created_at')
+    search_fields = ('title',)
+
+@admin.register(Service)
+class ServiceAdmin(admin.ModelAdmin):
+    list_display = ( 'title', 'created_at', 'is_active')
     list_filter = ('is_active', 'created_at')
     search_fields = ('title',)
 
@@ -63,15 +70,15 @@ class ReviewAdmin(admin.ModelAdmin):
 
 class ProductImageInline(admin.TabularInline):
     model = ProductImage
-    extra = 3
+    extra = 1
 
 class ProductSizeInline(admin.TabularInline):
     model = ProductSize
-    extra = 3
+    extra = 1
 
 class AdditionalInfoInline(admin.TabularInline):
     model = AdditionalInfo
-    extra = 3
+    extra = 1
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):

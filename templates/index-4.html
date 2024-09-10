@@ -37,50 +37,21 @@
         <section class="featured pb-30 pt-10">
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-3 col-md-6 mb-md-3 mb-lg-0">
-                        <div class="banner-left-icon style-2 d-flex align-items-center wow fadeIn animated">
-                            <div class="banner-icon">
-                                <img src="assets/imgs/theme/icons/icon-truck.svg" alt="">
-                            </div>
-                            <div class="banner-text">
-                                <h3 class="icon-box-title">Free Shipping</h3>
-                                <p>Orders $50 or more</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 mb-3 mb-lg-0">
-                        <div class="banner-left-icon style-2 d-flex align-items-center wow fadeIn animated">
-                            <div class="banner-icon">
-                                <img src="assets/imgs/theme/icons/icon-purchase.svg" alt="">
-                            </div>
-                            <div class="banner-text">
-                                <h3 class="icon-box-title">Free Returns</h3>
-                                <p>Within 30 days</p>
+                    {% for service in services %}
+                        <div class="col-lg-3 col-md-6 mb-md-3 mb-lg-0">
+                            <div class="banner-left-icon style-2 d-flex align-items-center wow fadeIn animated">
+                                <div class="banner-icon">
+                                    {% if service.icon %}
+                                        <img src="{{ service.icon.url }}" alt="">
+                                    {% endif %}
+                                </div>
+                                <div class="banner-text">
+                                    <h3 class="icon-box-title">{{ service.title }}</h3>
+                                    <p>{{ service.description }}</p>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6">
-                        <div class="banner-left-icon style-2 d-flex align-items-center wow fadeIn animated">
-                            <div class="banner-icon">
-                                <img src="assets/imgs/theme/icons/icon-bag.svg" alt="">
-                            </div>
-                            <div class="banner-text">
-                                <h3 class="icon-box-title">Get 20% Off 1 Item</h3>
-                                <p>When you sign up</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6">
-                        <div class="banner-left-icon style-2 d-flex align-items-center wow fadeIn animated mb-sm-0">
-                            <div class="banner-icon">
-                                <img src="assets/imgs/theme/icons/icon-operator.svg" alt="">
-                            </div>
-                            <div class="banner-text">
-                                <h3 class="icon-box-title">Support Center</h3>
-                                <p>24/7 amazing services</p>
-                            </div>
-                        </div>
-                    </div>
+                    {% endfor %}
                 </div>
             </div>
         </section>

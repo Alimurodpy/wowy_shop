@@ -40,6 +40,18 @@ class Banner(BaseModel):
     def __str__(self):
         return f"{self.id}"
 
+class Service(BaseModel):
+    title = models.CharField(max_length=255, verbose_name="Service title")
+    icon = models.FileField(upload_to='service_icon/', verbose_name="Service icon")
+    description = models.TextField(verbose_name="Service description")
+
+    class Meta:
+        verbose_name = "Service"
+        verbose_name_plural = "Services"
+
+    def __str__(self):
+        return self.title
+
 class Brand(BaseModel):
     title = models.CharField(max_length=255, verbose_name="Brand name")
     logo = models.ImageField(upload_to='brand_logo/', verbose_name="Brand logo")
@@ -84,6 +96,7 @@ class Size(BaseModel):
 
 class Product(BaseModel):
     title = models.CharField(max_length=255, verbose_name="Product title")
+    slug = models.SlugField(unique=True, verbose_name="Slug")
     brand = models.ForeignKey('Brand', on_delete=models.CASCADE, verbose_name="Brand")
     category = models.ManyToManyField('Category', verbose_name="Category")
     short_desc = models.TextField(verbose_name="Short description")
