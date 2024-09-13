@@ -193,7 +193,7 @@
                                     {% if grandparents_count <= 10 %}
                                         <li class="has-children">
                                             {% if not category.parent %}
-                                                <a href="#"><i class="{{ category.icon }}"></i>{{ category.title }}</a>
+                                                <a href="{% url 'products:category' category.slug %}"><i class="{{ category.icon }}"></i>{{ category.title }}</a>
                                                 <div class="dropdown-menu">
                                                     <ul class="mega-menu d-lg-flex">
                                                         <li class="mega-menu-col col-lg-7">
@@ -205,7 +205,7 @@
                                                                                 <li><span class="submenu-title">{{ father.title }}</span></li>
                                                                                 {% if father.children.exists %}
                                                                                     {% for child in father.children.all %}
-                                                                                    <li><a class="dropdown-item nav-link nav_item" href="#">{{ child.title }}</a></li>
+                                                                                    <li><a class="dropdown-item nav-link nav_item" href="{% url 'products:category' child.slug %}">{{ child.title }}</a></li>
                                                                                     {% endfor %}
                                                                                 {% endif %}
                                                                             {% endfor %}
@@ -220,10 +220,9 @@
                                                                 <div class="banne_info">
                                                                     <h6>10% Off</h6>
                                                                     <h4>New Arrival</h4>
-                                                                    <a href="#">Shop now</a>
+                                                                    <a href="{% url 'products:category' category.slug %}">Shop now</a>
                                                                 </div>
                                                             </div>
-                                                            
                                                         </li>
                                                     </ul>
                                                 </div>
@@ -239,7 +238,7 @@
                                             {% if grandparents_count > 10 %}
                                                 <li class="has-children">
                                                     {% if not category.parent %}
-                                                        <a href="#"><i class="{{ category.icon }}"></i>{{ category.title }}</a>
+                                                        <a href="{% url 'products:category' category.slug %}"><i class="{{ category.icon }}"></i>{{ category.title }}</a>
                                                         <div class="dropdown-menu">
                                                             <ul class="mega-menu d-lg-flex">
                                                                 <li class="mega-menu-col col-lg-7">
@@ -251,7 +250,7 @@
                                                                                         <li><span class="submenu-title">{{ father.title }}</span></li>
                                                                                         {% if father.children.exists %}
                                                                                             {% for child in father.children.all %}
-                                                                                            <li><a class="dropdown-item nav-link nav_item" href="#">{{ child.title }}</a></li>
+                                                                                            <li><a class="dropdown-item nav-link nav_item" href="{% url 'products:category' child.slug %}">{{ child.title }}</a></li>
                                                                                             {% endfor %}
                                                                                         {% endif %}
                                                                                     {% endfor %}
@@ -262,19 +261,11 @@
                                                                 </li>
                                                                 <li class="mega-menu-col col-lg-5">
                                                                     <div class="header-banner2">
-                                                                        <img src="assets/imgs/banner/menu-banner-2.jpg" alt="menu_banner1">
+                                                                        <img src="{{ category.photo.url }}" alt="menu_banner1">
                                                                         <div class="banne_info">
                                                                             <h6>10% Off</h6>
                                                                             <h4>New Arrival</h4>
-                                                                            <a href="#">Shop now</a>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="header-banner2">
-                                                                        <img src="assets/imgs/banner/menu-banner-3.jpg" alt="menu_banner2">
-                                                                        <div class="banne_info">
-                                                                            <h6>15% Off</h6>
-                                                                            <h4>Hot Deals</h4>
-                                                                            <a href="#">Shop now</a>
+                                                                            <a href="{% url 'products:category' category.slug %}">Shop now</a>
                                                                         </div>
                                                                     </div>
                                                                 </li>

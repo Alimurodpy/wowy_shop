@@ -4,7 +4,12 @@ from apps.products.models import (
     Banner,
     Service,
     Category,
-    Brand
+    Brand,
+    Product,
+    ProductImage,
+    ProductSize,
+    AdditionalInfo,
+    Review
 )
 
 # Create your views here.
@@ -19,6 +24,7 @@ class HomePageView(View):
         children = Category.objects.filter(parent__parent__isnull=False)
         parents_and_children = Category.objects.filter(parent__isnull=False)
         brand = Brand.objects.all().order_by('-created_at')
+        popular_products = Product.objects.filter(is_popular=True)
 
         # print("grandparents",grandparents, '\n')
         # print("parents",parents_and_children, '\n')
@@ -32,15 +38,30 @@ class HomePageView(View):
             'grandparents': grandparents,
             'grandparents_count': grandparents_count,
             'children': children,
-            'brands': brand
+            'brands': brand,
+            'popular_products': popular_products
 
         }
         return render(request, 'index-4.html', context)
     
 class ShopView(View):
     def get(self, request):
-        return render(request, 'shop-grid-left.html', {})
-    
+        product = Product.objects.all()
+        
+        context = {
+            'products': product
+        }
+        return render(request, 'shop-grid-left.html', context)
+
+class CategoryView(View):
+    def get(self, request, slug):
+        product = Product.objects.filter(category__slug=slug)
+        print("product",product, "#####################################")
+        context = {
+            'products': product
+        }
+        return render(request, 'shop-grid-left.html', context)
+
 class AboutView(View):
     def get(self, request):
         return render(request, 'page-about.html', {})
@@ -48,3 +69,35 @@ class AboutView(View):
 class ContactView(View):
     def get(self, request):
         return render(request, 'page-contact.html', {})
+    
+class ProductView(View):
+    def get(self, request, slug):
+        size = request.GET.get('size', None)
+        color = request.GET.get('color', None)
+        if size is None or color is None:
+            product = ProductSize.objects.filter(product__slug=slug)[0]
+        else:
+            product = ProductSize.objects.get(product__slug=slug, size__name=size, color__name=color)
+            # product = Product.objects.get(slug=slug, sizes__size__name=size, sizes__color__name=color)
+        unique_colors = ProductSize.objects.filter(product__slug=slug).values_list('color__name', flat=True).distinct()
+        unique_sizes = ProductSize.objects.filter(product__slug=slug).values_list('size__name', flat=True).distinct()
+        # order_product = Product.objects.get(slug=slug).sizes.filter(size__name=size)
+        # order_product = ProductSize.objects.filter(size__name=size, product__slug=slug)
+        
+        # product = Product.objects.get(slug=slug, sizes__size__name=size, sizes__color__name=color)
+
+        print('\n',"product ->",product,'\n')
+        # print('\n',"order_product ->",order_product,'\n')
+        # print('\n',"order_product ->",order_product.SKU,'\n')
+
+        # for order_product in order_product:
+        #     print('\n',"order_product ->",order_product.size,'\n')
+        
+        context = {
+            'product': product,
+            'size' : size,
+            'color' : color,
+            'unique_colors': unique_colors,
+            'unique_sizes': unique_sizes
+        }
+        return render(request, 'shop-product-right.html', context)

@@ -98,6 +98,7 @@ class Product(BaseModel):
     title = models.CharField(max_length=255, verbose_name="Product title")
     slug = models.SlugField(unique=True, verbose_name="Slug")
     brand = models.ForeignKey('Brand', on_delete=models.CASCADE, verbose_name="Brand")
+    is_popular = models.BooleanField(default=False, verbose_name="Is popular")
     category = models.ManyToManyField('Category', verbose_name="Category")
     short_desc = models.TextField(verbose_name="Short description")
     description = RichTextField()
@@ -114,7 +115,7 @@ class Product(BaseModel):
 
 class ProductImage(BaseModel):
     product = models.ForeignKey('Product', on_delete=models.CASCADE, verbose_name="Product", related_name="images")
-    color = models.ForeignKey('Color', on_delete=models.CASCADE, verbose_name="Color")
+    color = models.ForeignKey('Color', on_delete=models.CASCADE, verbose_name="Color", related_name="images_color")
     image = models.ImageField(upload_to='product_image/', verbose_name="Product image")
 
 
@@ -126,8 +127,8 @@ class ProductImage(BaseModel):
         return self.product.title
 
 class ProductSize(BaseModel):
-    product = models.ForeignKey('Product', on_delete=models.CASCADE, verbose_name="Product")
-    color = models.ForeignKey('Color', on_delete=models.CASCADE, verbose_name="Color")
+    product = models.ForeignKey('Product', on_delete=models.CASCADE, verbose_name="Product", related_name="sizes")
+    color = models.ForeignKey('Color', on_delete=models.CASCADE, verbose_name="Color", related_name="sizes_color")
     size = models.ForeignKey('Size', on_delete=models.CASCADE, verbose_name="Size")
     availability = models.IntegerField(default=True, verbose_name="Availability")
     price = models.FloatField(verbose_name="Price")
@@ -142,7 +143,7 @@ class ProductSize(BaseModel):
 
 
 class AdditionalInfo(BaseModel):
-    product = models.ForeignKey('Product', on_delete=models.CASCADE, verbose_name="Product")
+    product = models.ForeignKey('Product', on_delete=models.CASCADE, verbose_name="Product", related_name="additional_info")
     key = models.CharField(max_length=255, verbose_name="Key")
     value = models.CharField(max_length=255, verbose_name="Value")
 
@@ -154,7 +155,7 @@ class AdditionalInfo(BaseModel):
         return self.key
     
 class Review(BaseModel):
-    product = models.ForeignKey('Product', on_delete=models.CASCADE, verbose_name="Product")
+    product = models.ForeignKey('Product', on_delete=models.CASCADE, verbose_name="Product", related_name="reviews")
     user = models.ForeignKey('accounts.User', on_delete=models.CASCADE, verbose_name="User")
     review = models.TextField(verbose_name="Text")
     rating = models.IntegerField(verbose_name="Rate")
