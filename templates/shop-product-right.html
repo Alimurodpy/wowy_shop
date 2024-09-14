@@ -22,25 +22,19 @@
                                         <span class="zoom-icon"><i class="fa fa-search-plus"></i></span>
                                         <!-- MAIN SLIDES -->
                                         <div class="product-image-slider">
-                                            {% for image in product.images.all %}
-                                                <figure class="border-radius-10 slick-slide slick-current slick-active" data-slick-index="-1" id="" aria-hidden="true" tabindex="-1" style="width: 471px;"></figure>
+                                            {% for image in order_image %}
+                                                <figure class="border-radius-10">
                                                     <img src="{{ image.image.url }}" alt="product image">
                                                 </figure>
                                             {% endfor %}
                                         </div>
                                         <!-- THUMBNAILS -->
                                         <div class="slider-nav-thumbnails pl-15 pr-15">
-                                            <div class="slick-slide slick-cloned slick-active" data-slick-index="-5" id="" aria-hidden="true" tabindex="-1" style="width: 83px;">
-                                                <img src="{% static 'assets/imgs/shop/thumbnail-3.jpg' %}" alt="product image">
-                                            </div>
-                                            <div>
-                                                <img src="{% static 'assets/imgs/shop/thumbnail-4.jpg' %}" alt="product image">
-                                            </div>
-                                            <div><img src="assets/imgs/shop/thumbnail-5.jpg" alt="product image"></div>
-                                            <div><img src="assets/imgs/shop/thumbnail-6.jpg" alt="product image"></div>
-                                            <div><img src="assets/imgs/shop/thumbnail-7.jpg" alt="product image"></div>
-                                            <div><img src="assets/imgs/shop/thumbnail-8.jpg" alt="product image"></div>
-                                            <div><img src="assets/imgs/shop/thumbnail-9.jpg" alt="product image"></div>
+                                            {% for image in order_image %}
+                                                <figure class="border-radius-10">
+                                                    <div><img src="{{ image.image.url }}" alt="product image"></div>
+                                                </figure>
+                                            {% endfor %}
                                         </div>
                                     </div>
                                     <!-- End Gallery -->
@@ -59,7 +53,7 @@
                                 </div>
                                 <div class="col-md-6 col-sm-12 col-xs-12">
                                     <div class="detail-info">
-                                        <h2 class="title-detail">{{ product.product.title }}{{product.color.images_color.all}}</h2>
+                                        <h2 class="title-detail">{{ product.product.title }}</h2>
                                         <div class="product-detail-rating">
                                             <div class="pro-details-brand">
                                                 <span> Brands: <a href="shop-grid-right.html">{{ product.product.brand }}</a></span>
@@ -90,9 +84,9 @@
                                             <ul class="list-filter size-filter color-filter">
                                                 {% for unique_color in unique_colors %}   
                                                         {% if color != unique_color %}  
-                                                            <li><a href="?color={{ unique_color }}{% if size %}&size={{ size }}{% endif %}">{{ unique_color }}</a></li>
+                                                            <li><a href="?color={{ unique_color }}">{{ unique_color }}</a></li>
                                                         {% else %}
-                                                            <li class="active"><a href="?color={{ unique_color }}{% if size %}&size={{ size }}{% endif %}">{{ unique_color }}</a></li>
+                                                            <li class="active"><a href="?color={{ unique_color }}">{{ unique_color }}</a></li>
                                                         {% endif %}
                                                 {% endfor %}
                                             </ul>
@@ -102,7 +96,14 @@
                                             <ul class="list-filter size-filter font-small">
                                                 {% for unique_size in unique_sizes %}
                                                     {% if size != unique_size %}
-                                                        <li><a href="?size={{ unique_size }}{% if color %}&color={{ color }}{% endif %}">{{ unique_size }}</a></li>
+                                                        <li>
+                                                            <a href="?size={{ unique_size }}{% if color %}&color={{ color }}{% endif %}"
+                                                            {% if product.availability <= 0 %}
+                                                                class="btn btn-primary disabled" tabindex="-1" aria-disabled="true"
+                                                            {% endif %}>
+                                                                {{ unique_size }}
+                                                            </a>
+                                                        </li>
                                                     {% else %}
                                                         <li class="active"><a href="?size={{ unique_size }}{% if color %}&color={{ color }}{% endif %}">{{ unique_size }}</a></li>
                                                     {% endif %}

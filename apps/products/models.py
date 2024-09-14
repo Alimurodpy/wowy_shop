@@ -128,7 +128,7 @@ class ProductImage(BaseModel):
 
 class ProductSize(BaseModel):
     product = models.ForeignKey('Product', on_delete=models.CASCADE, verbose_name="Product", related_name="sizes")
-    color = models.ForeignKey('Color', on_delete=models.CASCADE, verbose_name="Color", related_name="sizes_color")
+    color = models.ForeignKey('Color', on_delete=models.CASCADE, verbose_name="Color", related_name="sizescolor")
     size = models.ForeignKey('Size', on_delete=models.CASCADE, verbose_name="Size")
     availability = models.IntegerField(default=True, verbose_name="Availability")
     price = models.FloatField(verbose_name="Price")

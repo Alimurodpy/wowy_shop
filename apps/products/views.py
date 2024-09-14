@@ -71,23 +71,30 @@ class ContactView(View):
         return render(request, 'page-contact.html', {})
     
 class ProductView(View):
-    def get(self, request, slug):
+    def get(self, request, slug): 
         size = request.GET.get('size', None)
         color = request.GET.get('color', None)
-        if size is None or color is None:
+
+        if color is None:
             product = ProductSize.objects.filter(product__slug=slug)[0]
+            order_image = ProductImage.objects.filter(product__slug=slug)
+        elif size is None:
+            product = ProductSize.objects.filter(product__slug=slug, color__name=color)[0]
+            order_image = ProductImage.objects.filter(product__slug=slug, color__name=color)
         else:
             product = ProductSize.objects.get(product__slug=slug, size__name=size, color__name=color)
-            # product = Product.objects.get(slug=slug, sizes__size__name=size, sizes__color__name=color)
-        unique_colors = ProductSize.objects.filter(product__slug=slug).values_list('color__name', flat=True).distinct()
-        unique_sizes = ProductSize.objects.filter(product__slug=slug).values_list('size__name', flat=True).distinct()
-        # order_product = Product.objects.get(slug=slug).sizes.filter(size__name=size)
-        # order_product = ProductSize.objects.filter(size__name=size, product__slug=slug)
+            order_image = ProductImage.objects.filter(product__slug=slug, color__name=color)
+            
+        # if color is None:
+        #     order_image = ProductImage.objects.filter(product__slug=slug)
+        # else:    
+        #     order_image = ProductImage.objects.filter(product__slug=slug, color__name=color)
         
-        # product = Product.objects.get(slug=slug, sizes__size__name=size, sizes__color__name=color)
+        unique_colors = ProductSize.objects.filter(product__slug=slug).values_list('color__name', flat=True).distinct()
+        unique_sizes = ProductSize.objects.filter(product__slug=slug, color__name=color).values_list('size__name', flat=True).distinct()
 
         print('\n',"product ->",product,'\n')
-        # print('\n',"order_product ->",order_product,'\n')
+        # print('\n',"product ->",product,'\n')
         # print('\n',"order_product ->",order_product.SKU,'\n')
 
         # for order_product in order_product:
@@ -98,6 +105,7 @@ class ProductView(View):
             'size' : size,
             'color' : color,
             'unique_colors': unique_colors,
-            'unique_sizes': unique_sizes
+            'unique_sizes': unique_sizes,
+            'order_image': order_image
         }
         return render(request, 'shop-product-right.html', context)
