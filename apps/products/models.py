@@ -2,6 +2,7 @@ from django.db import models
 from apps.base.models import BaseModel
 from mptt.models import MPTTModel, TreeForeignKey
 from ckeditor.fields import RichTextField
+from PIL import Image
 
 class Category(BaseModel, MPTTModel):
     title = models.CharField(max_length=255, verbose_name="Category name")
@@ -102,6 +103,9 @@ class Product(BaseModel):
     category = models.ManyToManyField('Category', verbose_name="Category")
     short_desc = models.TextField(verbose_name="Short description")
     description = RichTextField()
+    rating = models.FloatField(verbose_name="Rating")
+    discount = models.IntegerField(verbose_name="Discount")
+    view_count = models.IntegerField(verbose_name="View count")
     SKU = models.CharField(max_length=100, verbose_name="SKU")
     tags = models.ManyToManyField('Tag', verbose_name="Tags")
 
@@ -118,13 +122,23 @@ class ProductImage(BaseModel):
     color = models.ForeignKey('Color', on_delete=models.CASCADE, verbose_name="Color", related_name="images_color")
     image = models.ImageField(upload_to='product_image/', verbose_name="Product image")
 
-
     class Meta:
         verbose_name = "Product image"
         verbose_name_plural = "Product images"
 
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+
+        img = Image.open(self.image.path)
+
+        # Rasmni aniq 1100x1100px ga o'zgartirish
+        new_size = (1100, 1100)
+        img = img.resize(new_size, Image.Resampling.LANCZOS)
+        img.save(self.image.path)
+
     def __str__(self):
         return self.product.title
+
 
 class ProductSize(BaseModel):
     product = models.ForeignKey('Product', on_delete=models.CASCADE, verbose_name="Product", related_name="sizes")

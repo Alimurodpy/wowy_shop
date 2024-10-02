@@ -191,8 +191,9 @@
                             <ul>
                                 {% for category in categories %}
                                     {% if grandparents_count <= 10 %}
-                                        <li class="has-children">
-                                            {% if not category.parent %}
+                                        {% if not category.parent %}
+                                            {% if category.children.exists %}
+                                            <li class="has-children">
                                                 <a href="{% url 'products:category' category.slug %}"><i class="{{ category.icon }}"></i>{{ category.title }}</a>
                                                 <div class="dropdown-menu">
                                                     <ul class="mega-menu d-lg-flex">
@@ -226,11 +227,14 @@
                                                         </li>
                                                     </ul>
                                                 </div>
-                                            {% endif %} 
-                                        </li>
+                                            </li>
+                                            {% else %}
+                                                <li><a href="{% url 'products:category' category.slug %}"><i class="{{ category.icon }}"></i>{{ category.title }}</a></li>
+                                            {% endif %}
+                                                <!-- <li><a href="shop-grid-right.html"><i class="wowy-font-desktop"></i>Computer & Office</a></li> -->
+                                        {% endif %} 
                                     {% endif %}
                                 {% endfor %}
-                                <li><a href="shop-grid-right.html"><i class="wowy-font-desktop"></i>Computer & Office</a></li>
                                 <li>
                                     <ul class="more_slide_open" style="display: none;">
                                         <li><a href="shop-grid-right.html"><i class="wowy-font-desktop"></i>Beauty, Health</a></li>

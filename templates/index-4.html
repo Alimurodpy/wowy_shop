@@ -91,9 +91,9 @@
                                                 <a href="{% url 'products:category' product.category.all.0.slug %}">{{ product.category.all.0 }}</a>
                                             </div>
                                             <h2><a href="{% url 'products:product' product.slug %}">{{ product.title }}</a></h2>
-                                            <div class="rating-result" title="90%">
+                                            <div class="rating-result" title="{{product.rating}}%">
                                                 <span>
-                                                    <span>90%</span>
+                                                    <span>{{ product.rating }}%</span>
                                                 </span>
                                             </div>
                                             <div class="product-price">

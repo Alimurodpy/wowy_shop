@@ -22,7 +22,6 @@ class HomePageView(View):
         grandparents = Category.objects.filter(parent__isnull=True)
         grandparents_count = grandparents.count()
         children = Category.objects.filter(parent__parent__isnull=False)
-        parents_and_children = Category.objects.filter(parent__isnull=False)
         brand = Brand.objects.all().order_by('-created_at')
         popular_products = Product.objects.filter(is_popular=True)
 
@@ -74,6 +73,7 @@ class ProductView(View):
     def get(self, request, slug): 
         size = request.GET.get('size', None)
         color = request.GET.get('color', None)
+    
 
         if color is None:
             product = ProductSize.objects.filter(product__slug=slug)[0]
@@ -91,9 +91,18 @@ class ProductView(View):
         #     order_image = ProductImage.objects.filter(product__slug=slug, color__name=color)
         
         unique_colors = ProductSize.objects.filter(product__slug=slug).values_list('color__name', flat=True).distinct()
-        unique_sizes = ProductSize.objects.filter(product__slug=slug, color__name=color).values_list('size__name', flat=True).distinct()
+        if color is None:
+            unique_sizes = ProductSize.objects.filter(product__slug=slug).values_list('size__name', flat=True).distinct()
+        else:
+            unique_sizes = ProductSize.objects.filter(product__slug=slug, color__name=color).values_list('size__name', flat=True).distinct()
+        
 
-        print('\n',"product ->",product,'\n')
+        product.product.view_count += 1
+        product.product.save()
+
+        new_price = product.price - ((product.price * product.product.discount) / 100)
+
+        # print('\n',"product.product.view_count ->",product.product.view_count,'\n')
         # print('\n',"product ->",product,'\n')
         # print('\n',"order_product ->",order_product.SKU,'\n')
 
@@ -106,6 +115,7 @@ class ProductView(View):
             'color' : color,
             'unique_colors': unique_colors,
             'unique_sizes': unique_sizes,
-            'order_image': order_image
+            'order_image': order_image,
+            'new_price': new_price
         }
         return render(request, 'shop-product-right.html', context)
