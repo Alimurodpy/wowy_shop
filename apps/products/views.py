@@ -131,3 +131,43 @@ class ProductView(View):
             'new_price': new_price
         }
         return render(request, 'shop-product-right.html', context)
+    
+class FilterView(View):
+    def post(self, request):
+        keywords = request.POST.get('keywords')
+        status = request.POST.get('status')
+        address= request.POST.get('address')
+        bedrooms = request.POST.get('bedrooms')
+        garages = request.POST.get('garages')
+        bathrooms = request.POST.get('bathrooms')
+        min_price = request.POST.get('min_price')
+        max_price = request.POST.get('max_price')
+
+        filters = Q()
+        if keywords:
+            filters &= Q(name__icontains=keywords) 
+        if status:
+            filters &= Q(status__icontains=status)
+        if address:
+            filters &= Q(address__icontains=address)
+        if bedrooms:
+            filters &= Q(bed__gte=bedrooms)
+        if garages:
+            filters &= Q(garage__gte=garages)
+        if bathrooms:
+            filters &= Q(bath__gte=bathrooms)
+        if min_price:
+            filters &= Q(price__gte=min_price)
+        if max_price:
+            filters &= Q(price__lte=max_price)
+
+
+        properties = House.objects.filter(filters)
+        
+        context = {
+            'properties': properties
+        }
+        return render(request, 'property-grid.html', context)
+    
+    def get(self, request, *args, **kwargs):
+        return redirect('/')
