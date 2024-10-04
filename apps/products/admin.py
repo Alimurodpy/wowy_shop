@@ -12,7 +12,10 @@ from apps.products.models import (
     ProductSize,
     AdditionalInfo,
     Review,
-    Service
+    Service,
+    Advertising,
+    Categorize,
+    LimitedTimeOffers
 )
 
 @admin.register(Category)
@@ -44,6 +47,12 @@ class BrandAdmin(admin.ModelAdmin):
     list_display = ( 'title', 'created_at', 'is_active')
     list_filter = ('is_active', 'created_at')
     search_fields = ('title',)
+
+@admin.register(Categorize)
+class CategorizeAdmin(admin.ModelAdmin):
+    list_display = ( 'name', 'created_at', 'is_active')
+    list_filter = ('is_active', 'created_at')
+    search_fields = ('name',)
 
 @admin.register(Tag)
 class TagAdmin(admin.ModelAdmin):
@@ -87,12 +96,21 @@ class ProductAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('title',)}
     list_filter = ('is_active', 'created_at')
     search_fields = ('title',)
-    filter_horizontal = ('tags', 'category')
+    filter_horizontal = ('tags', 'category', 'categorize')
     inlines = [
         ProductImageInline,
         ProductSizeInline,
         AdditionalInfoInline
     ]
 
+@admin.register(Advertising)
+class AdvertisingAdmin(admin.ModelAdmin):
+    list_display = ('title', 'image', 'url', 'created_at', 'is_active')
+    list_filter = ('is_active', 'created_at')
+    search_fields = ('title',)
 
-
+@admin.register(LimitedTimeOffers)
+class LimitedTimeOffersAdmin(admin.ModelAdmin):
+    list_display = ('title', 'image', 'url', 'end_date', 'created_at', 'is_active')
+    list_filter = ('is_active', 'created_at')
+    search_fields = ('title',)

@@ -9,7 +9,9 @@ from apps.products.models import (
     ProductImage,
     ProductSize,
     AdditionalInfo,
-    Review
+    Review,
+    Advertising,
+    LimitedTimeOffers
 )
 
 # Create your views here.
@@ -24,7 +26,13 @@ class HomePageView(View):
         children = Category.objects.filter(parent__parent__isnull=False)
         brand = Brand.objects.all().order_by('-created_at')
         popular_products = Product.objects.filter(is_popular=True)
+        new_arrival = Product.objects.all().order_by('-created_at')
+        advertising = Advertising.objects.all()
+        monthly_best_sell = Product.objects.all().order_by('-view_count')
+        limited_time_offers = LimitedTimeOffers.objects.all()
 
+
+        # print("\nadvertising", advertising, '\n')
         # print("grandparents",grandparents, '\n')
         # print("parents",parents_and_children, '\n')
         # print("children",children, '\n')
@@ -38,7 +46,11 @@ class HomePageView(View):
             'grandparents_count': grandparents_count,
             'children': children,
             'brands': brand,
-            'popular_products': popular_products
+            'popular_products': popular_products,
+            'new_arrivals': new_arrival,
+            'monthly_best_sell': monthly_best_sell,
+            'advertisings': advertising,
+            'limited_time_offers': limited_time_offers 
 
         }
         return render(request, 'index-4.html', context)

@@ -64,6 +64,16 @@ class Brand(BaseModel):
     def __str__(self):
         return self.title
 
+class Categorize(BaseModel):
+    name = models.CharField(max_length=255, verbose_name="Categorize name")
+
+    class Meta:
+        verbose_name = "Categorize"
+        verbose_name_plural = "Categorizes"
+
+    def __str__(self):
+        return self.name
+
 class Tag(BaseModel):
     name = models.CharField(max_length=255, verbose_name="Tag name")
 
@@ -108,6 +118,7 @@ class Product(BaseModel):
     view_count = models.IntegerField(verbose_name="View count")
     SKU = models.CharField(max_length=100, verbose_name="SKU")
     tags = models.ManyToManyField('Tag', verbose_name="Tags")
+    categorize = models.ManyToManyField('Categorize', verbose_name="Categorize")
 
 
     class Meta:
@@ -180,3 +191,28 @@ class Review(BaseModel):
 
     def __str__(self):
         return self.product.title
+    
+class Advertising(BaseModel):
+    title = models.CharField(max_length=255, verbose_name="Advertising title")
+    image = models.ImageField(upload_to='advertising_image/', verbose_name="Advertising image")
+    url = models.URLField(verbose_name="Advertising url")
+
+    class Meta:
+        verbose_name = "Advertising"
+        verbose_name_plural = "Advertisings"
+
+    def __str__(self):
+        return self.title
+
+class LimitedTimeOffers(BaseModel):
+    title = RichTextField()
+    image = models.ImageField(upload_to='limited_time_offers_image/', verbose_name="Limited time offers image")
+    url = models.URLField(verbose_name="Limited time offers url")
+    end_date = models.CharField(max_length=255, verbose_name="Tugash sanasi", default="2025-10-10 00:00:00")
+
+    class Meta:
+        verbose_name = "Limited time offers"
+        verbose_name_plural = "Limited time offers"
+
+    def __str__(self):
+        return self.title
