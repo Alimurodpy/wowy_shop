@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.views.generic import View
+from django.shortcuts import redirect
 from apps.products.models import (
     Banner,
     Service,
@@ -134,40 +135,21 @@ class ProductView(View):
     
 class FilterView(View):
     def post(self, request):
-        keywords = request.POST.get('keywords')
-        status = request.POST.get('status')
-        address= request.POST.get('address')
-        bedrooms = request.POST.get('bedrooms')
-        garages = request.POST.get('garages')
-        bathrooms = request.POST.get('bathrooms')
-        min_price = request.POST.get('min_price')
-        max_price = request.POST.get('max_price')
+        text = request.POST.get('text')
+        category_title = request.POST.get('category')
 
-        filters = Q()
-        if keywords:
-            filters &= Q(name__icontains=keywords) 
-        if status:
-            filters &= Q(status__icontains=status)
-        if address:
-            filters &= Q(address__icontains=address)
-        if bedrooms:
-            filters &= Q(bed__gte=bedrooms)
-        if garages:
-            filters &= Q(garage__gte=garages)
-        if bathrooms:
-            filters &= Q(bath__gte=bathrooms)
-        if min_price:
-            filters &= Q(price__gte=min_price)
-        if max_price:
-            filters &= Q(price__lte=max_price)
+        if category_title and category_title != 'All Categories':
+            product = Product.objects.filter(
+                title__icontains=text, category__title=category_title
+            )
+        else:
+            product = Product.objects.filter(title__icontains=text)
 
-
-        properties = House.objects.filter(filters)
-        
         context = {
-            'properties': properties
+            'products': product
         }
-        return render(request, 'property-grid.html', context)
+
+        return render(request, 'shop-grid-left.html', context)
     
-    def get(self, request, *args, **kwargs):
+    def get(self, request):
         return redirect('/')

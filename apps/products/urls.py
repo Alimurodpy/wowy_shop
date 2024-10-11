@@ -5,7 +5,8 @@ from apps.products.views import (
     AboutView, 
     ContactView,
     CategoryView,
-    ProductView
+    ProductView,
+    FilterView
 )
 
 app_name = 'products'
@@ -17,4 +18,5 @@ urlpatterns = [
     path('contact/', ContactView.as_view(), name='contact'),
     path('category/<slug:slug>/', CategoryView.as_view(), name='category'),
     path('product/<slug:slug>/', ProductView.as_view(), name='product'),
+    path('filter/', FilterView.as_view(), name='filter'),
 ]

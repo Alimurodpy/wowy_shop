@@ -139,7 +139,7 @@
                                         <img src="{{ grandparent.photo.url }}" alt="">
                                     {% endif %}
                                 </figure>
-                                <h5><a href="{% url 'products:category' grandparent.slug %}">{{ grandparent.title }} {{advertising.all.first.title}}</a></h5>
+                                <h5><a href="{% url 'products:category' grandparent.slug %}">{{ grandparent.title }}</a></h5>
                             </div>
                         {% endfor %}
                     </div>

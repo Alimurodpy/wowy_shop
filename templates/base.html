@@ -89,30 +89,27 @@
                     <div class="logo logo-width-1">
                         <a href="{% url 'products:home' %}"><img src="{% static 'assets/imgs/theme/logo-default.png' %}" alt="logo"></a>
                     </div>
-                    <div class="search-style-2">
-                        <form action="#">
-                            <select class="select-active">
-                                <option>All Categories</option>
-                                <option>Women's Clothing</option>
-                                <option>Men's Clothing</option>
-                                <option>Cellphones</option>
-                                <option>Computer & Office</option>
-                                <option>Consumer Electronics</option>
-                                <option>Jewelry & Accessories</option>
-                                <option>Home & Garden</option>
-                                <option>Luggage & Bags</option>
-                                <option>Shoes</option>
-                                <option>Mother & Kids</option>
-                            </select>
-                            <input type="text" placeholder="Search for items…">
-                            <button type="submit"> <i class="far fa-search"></i> </button>
-                        </form>
-                    </div>
+
+                    <!-- Begin Search -->
+                        <div class="search-style-2">
+                            <form method="post" action="{% url 'products:filter' %}"> {% csrf_token %}
+                                <select class="select-active" name="category">
+                                    <option>All Categories</option>
+                                    {% for grandparent in grandparents %}
+                                        <option value="{{ grandparent.title }}">{{ grandparent.title }}</option>
+                                    {% endfor %}
+                                </select>
+                                <input type="text" placeholder="Search for items…" name="text">
+                                <button type="submit"> <i class="far fa-search"></i> </button>
+                            </form>
+                        </div>
+                    <!-- End Search -->
+
                     <div class="header-action-right">
                         <div class="header-action-2">
                             <div class="header-action-icon-2">
                                 <a href="shop-wishlist.html">
-                                    <img class="svgInject" alt="wowy" src="{% static 'assets/imgs/theme/icons/icon-heart' %}">
+                                    <img class="svgInject" alt="wowy" src="{% static 'assets/imgs/theme/icons/icon-heart.svg' %}">
                                     <span class="pro-count blue">99</span>
                                 </a>
                             </div>
